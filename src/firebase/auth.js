@@ -20,7 +20,7 @@ const login = async (email, password) => {
 };
 
 // Registro de usuario
-const signup = async (email, password) => {
+const signup = async (auth,email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
