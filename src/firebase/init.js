@@ -1,6 +1,6 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+import { getFirestore, doc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 import { firebaseConfig } from "./config.js";
 import {
   getAuth,
@@ -19,14 +19,17 @@ import {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-// const db = getFirestore(app);
+const db = getFirestore(app);
 // signInWithRedirect(auth, provider);
-
 
 export {
   auth,
   app,
-  // db,
+  db,
+  doc,
+  setDoc,
+  collection,
+  addDoc,
   signInWithPopup,
   provider,
   createUserWithEmailAndPassword,

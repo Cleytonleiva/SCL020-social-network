@@ -1,6 +1,9 @@
+import { createPost } from "../../firebase/post.js";
+
 export const newPost = () => {
     const divNewPost = document.createElement('div')
     divNewPost.setAttribute('id', 'containerNewPost')
+    
     const viewNewPost = `
     <div class="menu__side" id="menu_side">
     <div id="containImg">
@@ -62,16 +65,44 @@ export const newPost = () => {
             </div>
         </div>
         <div class="post">
-            <h2> aqui va el post</h2> 
+
+            <input class="post__textarea" name="createPostInput"  id="createPostTextarea" placeholder="Escribe un texto"></input>
+
+            <div class="radioButtons">
+                <div class="radioButtonContainer">
+                    <input type="radio" id="veganOptionId" name="postType" value="vegan" checked>
+                    <label for="veganOptionId">Vegan</label>
+                </div>
+
+                <div class="radioButtonContainer">
+                    <input type="radio" id="fullOptionId" name="postType" value="full">
+                    <label for="fullOptionId">Full</label>
+                </div>
+            </div>
         </div>
-        <div class= "optionsPost">
+        <div class="optionsPost">
             <div class="divOptionsBt">
-                <a href="#/userProfile" class="buttons" id="login">Publicar</a>
+                <button class="buttons" id="createPost">Publicar</button>
             </div>
         </div>
     </div>
 </div>
 `
 divNewPost.innerHTML = viewNewPost;
+
+const createPostButton = divNewPost.querySelector('#createPost')
+const textarea = divNewPost.querySelector('#createPostTextarea')
+
+createPostButton.addEventListener('click', () => {
+    const postType = divNewPost.querySelector('input[name="postType"]:checked').value;
+
+    const dataPost = {
+        text: textarea.value,
+        postType: postType
+    }
+
+    createPost(dataPost)
+})
+
 return divNewPost;
 };

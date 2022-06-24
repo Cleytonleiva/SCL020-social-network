@@ -212,6 +212,14 @@ input{
     margin-top: 40px;
 }
 
+/* AGREGANDO TEXTAREA */
+.post__textarea{
+    width: 95%;
+    height: 150px;
+    margin: 16px;
+}
+/* !!!! AGREGANDO TEXTAREA !!!! */
+
 .pencilIcon{
     text-align: center;
     display: flex;
@@ -396,3 +404,27 @@ input{
     text-decoration: none;
     color: #F34573;
 }
+
+.radioButtons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-block: 1rem;
+    color: #666666;
+}
+
+#bakerOption_id {
+    width: 2rem;
+    color:#932;
+}
+
+#eaterOption_id {
+    width: 2rem;
+    color:#932;
+}
+
+.radioButtonContainer {
+    display: flex;
+    align-items: center;
+}
+

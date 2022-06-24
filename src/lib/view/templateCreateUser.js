@@ -1,4 +1,6 @@
 import { signup } from '../../firebase/auth.js';
+import { doc, setDoc } from '../../firebase/init.js';
+
 export const createUser = () => {
     const divCreateUser = document.createElement('div')
     divCreateUser.setAttribute('id', 'userCreationView')
@@ -17,20 +19,36 @@ export const createUser = () => {
                 </div>
             </form>
             <p class="instruction">Quieres ingresar como:</p>
-            <img id=bakerImg src="img/Baker.png" alt="Baker" class="bakerEaterImg"><img id="eaterImg" src="img/eater.png" alt="Eater" class="bakerEaterImg">
-            <div class="divButtons">
-                <button class="buttons" id="newUser">Crear usuario</button>
+            <div class="radioButtons">
+                <div class="radioButtonContainer">
+                    <img src="img/Baker.png" width=80px>
+                    <input type="radio" id="bakerOption_id" name="userType" value="baker" checked>
+                </div>
+
+                <div class="radioButtonContainer">
+                <img src="img/eater.png" width=80px>
+                    <input type="radio" id="eaterOption_id" name="userType" value="eater">
+                </div>
+            </div>
+            <button class="buttons" id="newUser">Crear usuario</button>
             </div>
         </div>
         `
         divCreateUser.innerHTML = viewCreateUser;
         const btn = divCreateUser.querySelector("#newUser")
         btn.addEventListener("click", () => {
+            const username = divCreateUser.querySelector("#userName_id").value;
             const email = divCreateUser.querySelector("#userMail_id").value;
             const password = divCreateUser.querySelector("#userPassword_id").value;
-            signup(email, password);
+            const birthday = divCreateUser.querySelector("#dateOfBirth").value
+            const userType = divCreateUser.querySelector('input[name="userType"]:checked').value;
+
+            const data = {username, email, password, birthday, userType}
+            signup(data);
         })
         
 
     return divCreateUser;
 };
+    // <img id=bakerImg src="img/Baker.png" alt="Baker" class="bakerEaterImg"><img id="eaterImg" src="img/eater.png" alt="Eater" class="bakerEaterImg">
+    // <div class="divButtons">
