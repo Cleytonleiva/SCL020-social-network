@@ -12,27 +12,27 @@ export const home = () => {
             <a href="#/userProfile" class="selected">
                 <div class="option">
                     <i class="fa-solid fa-circle-user fa-xl" title="Perfil" ></i>
-                <h4> nombre usuario titulo</h4>
-            </div>
-        </a>
-        <a href="#/home">
-            <div class="option">
-                <i class="fa-solid fa-house fa-xl" title="Inicio"></i>
-                <h4>Inicio</h4>
-            </div>
-        </a>
-        <a href="#/search">
-            <div class="option">
-                <i class="fa-solid fa-magnifying-glass fa-xl" title="Buscar"></i>
-                <h4>Buscar</h4>
-            </div>
-        </a>
-        <a id= "btnLogOut">
-            <div class="option">
-                <i class="fa-solid fa-arrow-right-from-bracket fa-xl" title="Cerrar sesión"></i>
-                <h4>Cerrar cesion</h4>
-            </div>
-        </a>
+                    <h4> nombre usuario titulo</h4>
+                </div>
+            </a>
+            <a href="#/home">
+                <div class="option">
+                    <i class="fa-solid fa-house fa-xl" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+            <a href="#/search">
+                <div class="option">
+                    <i class="fa-solid fa-magnifying-glass fa-xl" title="Buscar"></i>
+                    <h4>Buscar</h4>
+                </div>
+            </a>
+            <a id="logoutButton">
+                <div class="option">
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-xl" title="Cerrar sesión"></i>
+                    <h4>Cerrar cesion</h4>
+                </div>
+            </a>
         </div>
     </div>
     <div class="postMain">
@@ -81,7 +81,7 @@ export const home = () => {
 </div>
 `
 divHome.innerHTML = viewHome;
-const btn = divHome.querySelector("#btnLogOut")
+const btn = divHome.querySelector("#logoutButton")
 btn.addEventListener("click", () => {
     logout();
 })
