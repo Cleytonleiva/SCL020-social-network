@@ -97,11 +97,12 @@ createPostButton.addEventListener('click', () => {
         postType: postType
     }
     
-    if (textarea.value == '' || null || undefined){
+    // if (textarea.value == '' || null || undefined)
+    if (!textarea.value.length){
     alert ('Debes ingresar texto')
     } else {
         createPost(dataPost)
-        window.location = '#/userProfile'
+        window.location = '#/home'
     }
 })
 

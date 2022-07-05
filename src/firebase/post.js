@@ -34,6 +34,8 @@ import {
     try {
       const postsArray = [];
       const user = auth.currentUser.uid;//propiedad para obtener el usuario que accedio si no accede nadie es null
+      console.log(user)
+
       const getCurrentUserPostsQuery = query(collection(db, 'posts'), where('idUser', '==', user), orderBy('createdAt', 'desc'));//metodo where recibe 3 parametros uno para filtrar uno para comparar y el valor
       const postsSnapshot = await getDocs(getCurrentUserPostsQuery);
       postsSnapshot.forEach((doc) => {

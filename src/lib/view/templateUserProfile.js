@@ -5,6 +5,7 @@ import { getUserPostData } from '../../firebase/users.js';
 export const userProfile = () => {
   const divUserProfile = document.createElement('div');
   divUserProfile.setAttribute('id', 'containerUserProfile');
+  const userData = JSON.parse(localStorage.getItem('userData'))
   const viewUserProfile = `
     <div class="menu__side" id="menu_side">
     <div id="containImg">
@@ -43,10 +44,10 @@ export const userProfile = () => {
             <i class="fa-solid fa-circle-user fa-6x"></i>
         </div>
         <div class="item2" id="nameHeader">
-            <h2>Nombre de usuario</h2>
+            <h2>${userData.username}</h2>
         </div>
         <div class="item3" id="titleHeader">
-            <h3>Titulo baker o eater</h3>
+            <h3>${userData.userType}</h3>
         </div>
     </div>
     <div class="createPostFlex">
@@ -75,41 +76,44 @@ export const userProfile = () => {
  
   getCurrentUserPosts()
     .then((postsResponse) => {
+        console.log(postsResponse)
+
+
         postsResponse.forEach((post) => {
+            console.log(post)
             getUserPostData(post.idUser)
                 .then((idUser) => { 
-        const date = new Date(Number(post.createdAt) * 1000).toLocaleDateString()
-        const postHTML = document.createElement('div');
-        postHTML.innerHTML = `        
-                    <div class="userNav">
-                        <div class="item1">
-                            <i class="fa-solid fa-circle-user fa-3x"></i>
-                        </div>
-                    
-                        <div class="item2">
-                            <p>${idUser.username}</p>
-                        </div>
-                    
-                        <div class="item3">
-                            <p>${idUser.userType}</p>
-                            <p class="date">${date}</p>
+                    const date = new Date(Number(post.createdAt) * 1000).toLocaleDateString()
+                    const postHTML = document.createElement('div');
+                    postHTML.innerHTML = `        
+                            <div class="userNav">
+                                <div class="item1">
+                                    <i class="fa-solid fa-circle-user fa-3x"></i>
+                                </div>
+                            
+                                <div class="item2">
+                                    <p>${idUser.username}</p>
+                                </div>
+                            
+                                <div class="item3">
+                                    <p>${idUser.userType}</p>
+                                    <p class="date">${date}</p>
 
-                        </div>
-                    </div>
-                    
-                    <div class="post">
-                        <h2>${post.text}</h2> 
-                    </div>
-                    <div class="like">
-                        <div>
-                            <img src="img/cuplike.png" class ="cupcakeImg" alt="cuplike">
-                        </div>
-                        <div class="pencilIcon">
-                            <a href="#/editPost" <i class="fa-solid fa-pencil fa-2xl"></i> </a>
-                        </div>
-                    </div>`;
-
-        postBody.appendChild(postHTML);
+                                </div>
+                            </div>
+                            
+                            <div class="post">
+                                <h2>${post.text}</h2> 
+                            </div>
+                            <div class="like">
+                                <div>
+                                    <img src="img/cuplike.png" class ="cupcakeImg" alt="cuplike">
+                                </div>
+                                <div class="pencilIcon">
+                                    <a href="#/editPost?id=1" <i class="fa-solid fa-pencil fa-2xl"></i> </a>
+                                </div>
+                            </div>`;
+                    postBody.appendChild(postHTML);
         });
      });
     });

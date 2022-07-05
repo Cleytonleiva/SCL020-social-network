@@ -13,14 +13,27 @@ import {
   signInWithRedirect,
   signInWithPopup
 } from "./init.js";
+import { getUserData } from './users.js';
 
 
 // Iniciar Sesión
 const login = async (email, password) => {
   try {
+    // SOLAMENTE RETORNA LA INFORMACION DE LA AUTENTIACION -> email, password, accesstoken, uid, ......
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    // 
-    // const userData = await getUserData(userCredential.user.uid)
+
+    /* 
+      {
+        loginfo: {....},
+        user: {
+          email,
+          uid: kdfjkasfoiuqjiu3981yhfkqwju329814ukasjjkfdpau9832147lkfjadsfh3h12
+        }
+      }
+    
+    kdfjkasfoiuqjiu3981yhfkqwju329814ukasjjkfdpau9832147lkfjadsfh3h12
+    */
+    const userData = await getUserData(userCredential.user.uid) //para tener la inf extra del usuario en base al uid (birt, nombre, type)
     /* 
       {
         username: '',
@@ -28,9 +41,11 @@ const login = async (email, password) => {
         birthday: ''
       }
     */
-    // localStorage.setItem('userData', JSON.stringify(userData))
+    localStorage.setItem('userData', JSON.stringify(userData))
     alert('Sesión iniciada correctamente')
     showTemplates('#/home')
+
+    // ESTE RETURN HASTA EL MOMENTO NO HACE NADA YA QUE ESTA FUNCION UNICAMENTE SE ENCARGA DE EJECTUAR EL INICIO DE SESION
     return userCredential;
   } catch (error) {
     if (error == 'FirebaseError: Firebase: Error (auth/invalid-email).'){
