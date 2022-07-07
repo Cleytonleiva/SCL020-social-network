@@ -49,7 +49,8 @@ const insertDocument = async ()=>{
     getAllPosts ((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const dataArray = doc.data()
-            console.log(dataArray)
+            const dataArrayidUser = doc.data().idUser;
+            getAllUsers(dataArrayidUser) 
             const postElement = document.createElement('div'); 
             postElement.setAttribute('class', 'postBody');
             postElement.innerHTML = `
