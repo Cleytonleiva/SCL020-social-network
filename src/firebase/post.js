@@ -1,25 +1,29 @@
 //import { searchPost } from '../lib/view/templateSearch.js';
 import {
-    db, addDoc, collection, getDocs, query, where, auth, orderBy, deleteDoc, doc
+    onSnapshot, db, addDoc, collection, getDocs, query, where, auth, orderBy, deleteDoc, doc
   } from './init.js';
 
   export const deletePost = id => deleteDoc(collection(db, "posts" , idUser));
 
-  //Llama array con todo los post
-  const getAllPosts = async () => {
-    try {
-      const postsArray = []; //array vacio donde quedaran los post.
-      const getAllPostsQuery = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));//consulta a db.
-      const allPostsSnapshot = await getDocs(getAllPostsQuery);// espera obtener los datos.
-      allPostsSnapshot.forEach((doc) => {
-        postsArray.push(doc.data());//.data(), toma data especifica de nuestra coleccion.
-      });
-      return postsArray;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  //Llama array de los posts del usuario actual
+  //Llama objeto con todo los post
+  const getAllPosts = (callback) => onSnapshot(collection(db, 'posts'), callback);
+
+  const getAllUsers = (callback) => onSnapshot(collection(db, 'users'), callback);
+
+  // const getAllUsers = (uid) => onSnapshot(doc(db, 'users'), uid);
+  
+  // const getUserPostData = async (uid) => {
+  //   try {
+  //     const getUserDataDoc = doc(db, 'users', uid);
+  //     const userDocSnapshot = await getDoc(getUserDataDoc);
+  //     return userDocSnapshot.data(); //data from firebase/collection/users/ANYid)
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  
+  // export { getUserPostData };
+
   const getCurrentUserPosts = async () => {
     try {
       const postsArray = [];
@@ -36,18 +40,14 @@ import {
     }
   };
   
-  //Crea en la coleccion de la db
+  //Crea post en la coleccion de la db
   const createPost = async (dataPost) => {
-    try {
-      const user = auth.currentUser.uid;
-      const secondsTimestamp = Math.floor(Date.now() / 1000)
-      await addDoc(collection(db, 'posts'), {idUser: user, createdAt: secondsTimestamp, ...dataPost}); //... agrega otro elemento en un mismo objeto.
-    } catch (error) {
-      console.log(error)
-    }
+    const user = auth.currentUser.uid;
+    const secondsTimestamp = Math.floor(Date.now() / 1000)
+    await addDoc(collection(db, 'caca'), {idUser: user, createdAt: secondsTimestamp, ...dataPost});
   };
   
-  export { createPost, getCurrentUserPosts, getAllPosts};
+  export { getAllUsers, createPost, getAllPosts};
   
   
   

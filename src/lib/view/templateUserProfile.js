@@ -1,5 +1,5 @@
 import { logout } from '../../firebase/auth.js';
-import { deletePost, getCurrentUserPosts } from '../../firebase/post.js';
+import { deletePost, getAllUsers } from '../../firebase/post.js';
 import { getUserPostData } from '../../firebase/users.js';
 
 export const userProfile = () => {
@@ -69,12 +69,12 @@ const divUserProfile = document.createElement('div');
             logout()
             })
 
-getCurrentUserPosts()
-    .then((postsResponse) => {
-        postsResponse.forEach((post) => {
-            getUserPostData(post.idUser)
-                .then((idUser) => { 
-        const date = new Date(Number(post.createdAt) * 1000).toLocaleDateString()
+    
+    const insertDocument = async ()=>{
+        getAllUsers((querySnapshot) => {
+            querySnapshot.forEach(doc => {
+                const dataArray = doc.data()
+                const date = new Date(Number(doc.createdAt) * 1000).toLocaleDateString()
         const postHTML = document.createElement('div');
         postHTML.innerHTML = `
                     <div class='postProfile'>
@@ -84,18 +84,18 @@ getCurrentUserPosts()
                         </div>
                     
                         <div class="userName">
-                            <p>${idUser.username}</p>
+                            <p>????</p>
                         </div>
                     
                         <div class="userTitle">
-                            <p>${idUser.userType}</p>
+                            <p>????</p>
                         </div>
                         <div class="userDate">
                             <p class="date">${date}</p>
                         </div>
                     </div>
                     <div class="post">
-                        <h2>${post.text}</h2> 
+                        <h2>????</h2> 
                     </div>
                     <div class="like">
                         <div>
@@ -103,7 +103,7 @@ getCurrentUserPosts()
                         </div>
                         <div class="pencilIcon">
                             <a href="#/editPost" <i class="fa-solid fa-pencil fa-2xl"></i> </a>
-                            <button id="btn-delete" data-id="${post.idUser}">X</button>
+                            <button id="btn-delete" data-id="${dataArray.text}">X</button>
                         </div>
                     </div>
                     </div>`;
@@ -119,9 +119,64 @@ getCurrentUserPosts()
                         })
                     });
         postBody.appendChild(postHTML);
-        });
-    });
-});
+            })
+        })
+    };
+
+    insertDocument()
+// getCurrentUserPosts()
+//     .then((postsResponse) => {
+//         postsResponse.forEach((post) => {
+//             getUserPostData(post.idUser)
+//                 .then((idUser) => { 
+//         const date = new Date(Number(post.createdAt) * 1000).toLocaleDateString()
+//         const postHTML = document.createElement('div');
+//         postHTML.innerHTML = `
+//                     <div class='postProfile'>
+//                     <div class="userNav">
+//                         <div class="userIcon">
+//                             <i class="fa-solid fa-circle-user fa-3x"></i>
+//                         </div>
+                    
+//                         <div class="userName">
+//                             <p>${idUser.username}</p>
+//                         </div>
+                    
+//                         <div class="userTitle">
+//                             <p>${idUser.userType}</p>
+//                         </div>
+//                         <div class="userDate">
+//                             <p class="date">${date}</p>
+//                         </div>
+//                     </div>
+//                     <div class="post">
+//                         <h2>${post.text}</h2> 
+//                     </div>
+//                     <div class="like">
+//                         <div>
+//                             <img src="img/cuplike.png" class ="cupcakeImg" alt="cuplike">
+//                         </div>
+//                         <div class="pencilIcon">
+//                             <a href="#/editPost" <i class="fa-solid fa-pencil fa-2xl"></i> </a>
+//                             <button id="btn-delete" data-id="${post.idUser}">X</button>
+//                         </div>
+//                     </div>
+//                     </div>`;
+            
+//                     const deleteBtn= postBody.querySelectorAll("#btn-delete")
+//                     deleteBtn.forEach(btn => {
+//                         btn.addEventListener("click", async () => {
+//                             const deleteConfirm = confirm("¿Are you sure you want to delete this post?");
+//                             if (deleteConfirm === true) {
+//                                 await deletePost(btn.dataset.idUser)
+//                                 alert("Post has been deleted");
+//                             }
+//                         })
+//                     });
+//         postBody.appendChild(postHTML);
+//         });
+//     });
+// });
     return divUserProfile;
 };
 
