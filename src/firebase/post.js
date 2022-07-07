@@ -8,7 +8,7 @@ import {
   //Llama objeto con todo los post
   const getAllPosts = (callback) => onSnapshot(collection(db, 'posts'), callback);
 
-  const getAllUsers = (id, callback) => onSnapshot(doc(db, 'users', id), callback);
+  const getAllUsers = (callback) => onSnapshot(collection(db, 'users'), callback);
 
 
   // const getAllUsers = (uid) => onSnapshot(doc(db, 'users'), uid);
