@@ -7,6 +7,7 @@ import { searchPost } from './view/templateSearch.js';
 import { editPost } from './view/templateEditPost.js';
 import { newPost } from './view/templateCreatePost.js';
 import { auth, onAuthStateChanged, logout } from '../firebase/auth.js';
+import { getDataUser } from '../firebase/post.js';
 
 export const showTemplates = (hash) => {
   const containerRoot = document.querySelector('#root');
@@ -21,6 +22,11 @@ export const showTemplates = (hash) => {
     if (!user) {
       containerRoot.appendChild(logInTemplate());
     } else {
+      const dataUser = getDataUser(user.uid)
+        console.log(dataUser)
+      //  traer el documento que corresponde al user.id porque no existe el campo id en usuario (numero de documento)
+      // localStorage.name y le doy el valor que traiga la peticion
+
       switch (hash) {
         case '#/home':
           containerRoot.appendChild(home());
