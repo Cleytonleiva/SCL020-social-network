@@ -48,10 +48,8 @@ let postMain = divHome.querySelector('.postMain');
 const insertDocument = async ()=>{
     getAllPosts ((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            getAllUsers(doc.idUser)
-            console.log(doc.idUser)
-            .then((users) => {
             const dataArray = doc.data()
+            console.log(dataArray)
             const postElement = document.createElement('div'); 
             postElement.setAttribute('class', 'postBody');
             postElement.innerHTML = `
@@ -79,7 +77,7 @@ const insertDocument = async ()=>{
                 </div>
             `
             postMain.appendChild(postElement);
-            })
+
         });
     })
 }
