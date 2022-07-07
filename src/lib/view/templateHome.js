@@ -1,5 +1,5 @@
 import { logout } from '../../firebase/auth.js';
-import { getAllUsers, getAllPosts } from '../../firebase/post.js';
+import { getDataUser, getAllUsers, getAllPosts } from '../../firebase/post.js';
 import { getUserPostData } from '../../firebase/users.js';
 
 export const home = () => {
@@ -46,11 +46,13 @@ const btn = divHome.querySelector('#logoutButton');
 let postMain = divHome.querySelector('.postMain');
 
 const insertDocument = async ()=>{
-    getAllPosts ((querySnapshot) => {
+    getAllPosts (async (querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const dataArray = doc.data()
-            const dataArrayidUser = doc.data().idUser;
-            getAllUsers(dataArrayidUser) 
+            // const dataArrayidUser = doc.data().idUser;
+            // const papas = await getUserPostData(dataArrayidUser);
+            // console.log(papas);
+            // // getAllUsers(dataArrayidUser) 
             const postElement = document.createElement('div'); 
             postElement.setAttribute('class', 'postBody');
             postElement.innerHTML = `
@@ -59,7 +61,7 @@ const insertDocument = async ()=>{
                     <i class="fa-solid fa-circle-user fa-3x"></i>
                 </div>
                 <div class="userName">
-                    <p>????</p>
+                    <p></p>
                 </div>
                 <div class="userTitle">
                     <p>????</p>

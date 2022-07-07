@@ -1,6 +1,6 @@
 //import { searchPost } from '../lib/view/templateSearch.js';
 import {
-    onSnapshot, db, addDoc, collection, getDocs, query, where, auth, orderBy, deleteDoc, doc
+    onSnapshot, db, addDoc, collection, getDocs, query, where, auth, orderBy, deleteDoc, doc, getDoc
   } from './init.js';
 
   export const deletePost = id => deleteDoc(collection(db, "posts" , idUser));
@@ -9,6 +9,12 @@ import {
   const getAllPosts = (callback) => onSnapshot(collection(db, 'posts'), callback);
 
   const getAllUsers = (callback) => onSnapshot(collection(db, 'users'), callback);
+
+  const getDataUser = async (uid) => {
+    const docRef = doc(db, 'users', uid);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  }
 
 
   // const getAllUsers = (uid) => onSnapshot(doc(db, 'users'), uid);
@@ -48,7 +54,7 @@ import {
     await addDoc(collection(db, 'caca'), {idUser: user, createdAt: secondsTimestamp, ...dataPost});
   };
   
-  export { getAllUsers, createPost, getAllPosts};
+  export { getDataUser, getAllUsers, createPost, getAllPosts};
   
   
   
