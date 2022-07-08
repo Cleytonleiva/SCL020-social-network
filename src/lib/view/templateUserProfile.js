@@ -71,7 +71,7 @@ const divUserProfile = document.createElement('div');
         .then((postsResponse) => {
             postsResponse.forEach((post) => {
                 console.log(post)
-                let postId1 = post.id;
+                let postId1 = post.idPost;
                 getUserData(post.idUser)
                     .then((idUser) => {
             const date = new Date(Number(post.createdAt) * 1000).toLocaleDateString()

@@ -29,7 +29,7 @@ const getCurrentUserPosts = async () => {
       const postId = doc.id;
       const postData = doc.data()
       const post = {
-        id: postId,
+        idPost: postId,
         ...postData
       }
       postsArray.push(post);
@@ -45,7 +45,7 @@ const createPost = async (dataPost) => {
   try {
     const user = auth.currentUser.uid;
     const secondsTimestamp = Math.floor(Date.now() / 1000)
-    await addDoc(collection(db, 'posts'), {idUser: user, createdAt: secondsTimestamp, ...dataPost}); //... agrega otro elemento en un mismo objeto.
+    await addDoc(collection(db, 'posts'), {idUser: user, createdAt: secondsTimestamp, ...dataPost}); //agrega otro elemento en un mismo objeto.
   } catch (error) {
     console.log(error)
   }

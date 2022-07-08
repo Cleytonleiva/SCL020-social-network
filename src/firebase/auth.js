@@ -47,7 +47,7 @@ user = {
   username: 'pepito',
   birhtdaty: '20200,
   userType: 'baker',
-  userPosts: [idPost1, idPost2, idPost3, ........]
+  userPosts: [idPost1, idPost2, idPost3, ..]
 }
 */
 const signup = async (data) => {
@@ -82,6 +82,7 @@ const googleLogin = async () => {
     const response = await signInWithPopup(auth, provider);
     showTemplates('#/home')
     console.log(response);
+    console.log(response.user);
     return response.user;
   } catch (error) {
     console.log(error.message)
